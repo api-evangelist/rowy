@@ -1,0 +1,114 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Rowy
+providerId: rowy
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Low-Code
+- Backend
+- Firestore
+- Firebase
+- Webhooks
+- Cloud Functions
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Rowy spend. Rowy itself is open source (free to self-host) with
+  a free hosted Base plan and a paid Pro subscription; it adds little or no
+  direct compute cost because it is 100% serverless and runs inside the user's
+  own Firebase/GCP project. The real, metered cost is the underlying Google
+  Cloud Platform usage: Firestore storage and reads/writes, Cloud Functions
+  invocations and build minutes, and Cloud Run for webhooks and Rowy Run
+  services. Cost optimization therefore happens at the GCP/Firebase layer, not
+  at Rowy.
+notes: >-
+  Rowy publishes no usage-based billing of its own beyond the Pro subscription;
+  track spend in the Google Cloud billing console (Firestore, Cloud Functions,
+  Cloud Run) for the connected project. Verify Pro subscription pricing and any
+  GCP free-tier thresholds during reconciliation.
+sources:
+- https://docs.rowy.io/faqs/cost
+- https://www.rowy.io/pricing
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Google Cloud Platform
+serviceCategory: Developer Tools and Low-Code
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Rowy
+  ServiceCategory: Developer Tools and Low-Code
+  ProviderName: Rowy
+  PublisherName: Google Cloud Platform
+  InvoiceIssuerName: Google Cloud Platform
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: firestore_storage
+  description: Firestore data stored for Rowy tables, billed per GB-month by Google Cloud.
+  unit: gb_month
+  aggregation: sum
+  dimensions:
+  - gcp_project
+  - service
+- name: firestore_operations
+  description: Firestore document reads, writes, and deletes driven by Rowy table activity, billed by Google Cloud.
+  unit: operations
+  aggregation: sum
+  dimensions:
+  - gcp_project
+  - operation
+- name: cloud_function_invocations
+  description: Cloud Function invocations from Rowy automations, derivatives, and actions, billed by Google Cloud.
+  unit: invocations
+  aggregation: sum
+  dimensions:
+  - gcp_project
+  - function
+- name: cloud_function_build_minutes
+  description: Build minutes consumed deploying Cloud Functions from Rowy, billed by Google Cloud.
+  unit: minutes
+  aggregation: sum
+  dimensions:
+  - gcp_project
+- name: cloud_run_usage
+  description: Cloud Run vCPU/memory/request time for the rowy-backend and rowy-hooks (webhook) services, billed by Google Cloud.
+  unit: vcpu_seconds
+  aggregation: sum
+  dimensions:
+  - gcp_project
+  - service
+- name: rowy_pro_subscription
+  description: Rowy Pro hosted subscription fee (if subscribed), billed by Rowy.
+  unit: subscription
+  aggregation: sum
+  dimensions:
+  - workspace
+principles:
+- name: Visibility
+  description: Track spend in the Google Cloud billing console for the connected project (Firestore, Cloud Functions, Cloud Run); Rowy itself adds only the optional Pro subscription.
+- name: Allocation
+  description: Tag the GCP project/workspace per team or product so Rowy-driven Firestore and Cloud Run costs map to cost centers.
+- name: Optimization
+  description: Stay within GCP free tiers where possible, prune unused cloud functions and webhooks, and right-size Firestore reads; self-host or use the free Base plan to avoid the Pro fee when multi-project isn't needed.
+- name: Accountability
+  description: Assign an owner to the connected GCP project and review Firestore/Cloud Run/Cloud Functions spend monthly against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

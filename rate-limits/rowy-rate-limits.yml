@@ -1,0 +1,59 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Rowy
+providerId: rowy
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Low-Code
+- Backend
+- Firestore
+- Firebase
+- Webhooks
+- Cloud Functions
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Rowy does not publish its own API rate limits. Its webhooks and Rowy Run
+  services run on Google Cloud Run inside the user's own GCP project, and its
+  data lives in the user's Google Cloud Firestore. Any effective rate limits,
+  quotas, or throttling therefore come from the underlying Google Cloud
+  Platform services (Cloud Run concurrency/instances, Cloud Functions
+  invocation limits, Firestore read/write quotas), not from Rowy. Specific
+  values are not reconciled in this artifact.
+notes: >-
+  On reconciliation, verify limits against Google Cloud Run, Cloud Functions,
+  and Firestore quota documentation for the user's project and region, since
+  these govern Rowy webhook and Rowy Run throughput. Rowy itself imposes no
+  documented per-account API rate limit.
+sources:
+- https://docs.rowy.io/rowy-run
+- https://docs.rowy.io/webhooks
+- https://cloud.google.com/run/quotas
+limits:
+- name: Webhook Throughput (Cloud Run)
+  scope: gcp-project
+  metric: requests
+  limit: governed by Google Cloud Run
+  notes: Webhooks run on the rowy-hooks Cloud Run service in the user's GCP project; throughput follows Cloud Run concurrency and instance limits.
+- name: Cloud Function Invocations
+  scope: gcp-project
+  metric: invocations
+  limit: governed by Google Cloud Functions
+  notes: Cloud Functions deployed via Rowy follow GCP invocation and build quotas.
+- name: Firestore Reads / Writes
+  scope: gcp-project
+  metric: operations
+  limit: governed by Google Cloud Firestore
+  notes: Table data operations are bounded by Firestore quotas for the user's project.
+policies:
+- name: Underlying GCP Limits
+  description: All practical rate limits derive from the user's own Google Cloud Run, Cloud Functions, and Firestore quotas rather than a Rowy-imposed limit.
+- name: Backoff Strategy
+  description: Clients integrating via webhooks should implement retries with exponential backoff and honor Cloud Run / Firestore error responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

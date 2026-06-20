@@ -1,0 +1,103 @@
+aid: rowy
+url: https://raw.githubusercontent.com/api-evangelist/rowy/refs/heads/main/apis.yml
+name: Rowy
+kind: company
+description: Rowy is an open-source low-code backend platform that puts an Airtable-like
+  spreadsheet UI on top of Google Cloud Firestore, with JavaScript/TypeScript Cloud
+  Functions, column automations, and webhooks. It is primarily a UI plus a
+  Firebase/GCP framework deployed into the user's own project; its main inbound API
+  surface is per-table webhooks running on Cloud Run, alongside Rowy Run backend
+  services and the underlying Firestore data store accessed via the Firebase SDK.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Low-Code
+- Backend
+- Firestore
+- Firebase
+- Webhooks
+- Cloud Functions
+created: '2026-06-20'
+modified: '2026-06-20'
+specificationVersion: '0.19'
+apis:
+- aid: rowy:rowy-webhooks
+  name: Rowy Webhooks
+  tags:
+  - Webhooks
+  - Inbound
+  - HTTP
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.rowy.io/webhooks
+  properties:
+  - url: https://docs.rowy.io/webhooks
+    type: Documentation
+  - url: https://docs.rowy.io/webhooks/basic
+    type: APIReference
+  - url: openapi/rowy-openapi.yml
+    type: OpenAPI
+  - url: https://github.com/rowyio/rowy
+    type: GitHub
+  description: Rowy's primary inbound API surface. Each table can generate an HTTPS
+    webhook endpoint running on Google Cloud Run (the rowy-hooks service) that
+    receives POST requests from external systems. Built-in types include Basic,
+    Typeform, Sendgrid, and Github; a low-code parser function maps the incoming
+    request into a new row, with optional condition and verification functions.
+- aid: rowy:rowy-run-cloud-functions
+  name: Rowy Run / Cloud Functions
+  tags:
+  - Cloud Functions
+  - Cloud Run
+  - Automation
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.rowy.io/rowy-run
+  properties:
+  - url: https://docs.rowy.io/rowy-run
+    type: Documentation
+  - url: openapi/rowy-openapi.yml
+    type: OpenAPI
+  - url: https://github.com/rowyio/rowy
+    type: GitHub
+  description: Rowy Run is a group of Google Cloud Run services (rowy-backend and
+    rowy-hooks) deployed into the user's own GCP project that powers derivatives,
+    action scripts, webhooks, user management, and one-click Cloud Function
+    deployment. Service URLs are generated at deploy time and stored in Firestore
+    (_rowy_/settings); there is no fixed public REST base URL or documented
+    endpoint catalog.
+- aid: rowy:rowy-firestore-data
+  name: Rowy Firestore Data
+  tags:
+  - Firestore
+  - Database
+  - SDK
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.rowy.io/
+  properties:
+  - url: https://docs.rowy.io/
+    type: Documentation
+  - url: openapi/rowy-openapi.yml
+    type: OpenAPI
+  - url: https://github.com/rowyio/rowy
+    type: GitHub
+  description: Rowy tables map directly onto Google Cloud Firestore collections.
+    Programmatic data access is not a Rowy-specific REST API; it is the underlying
+    Firestore data store reached via the Firebase/Google Cloud SDKs and the
+    Firestore REST/RPC API. Rowy provides the spreadsheet UI and low-code layer on
+    top of this data.
+common:
+- type: GitHubOrganization
+  url: https://github.com/rowyio
+- type: LinkedIn
+  url: https://www.linkedin.com/company/rowyio
+- type: Website
+  url: https://www.rowy.io
+- type: Documentation
+  url: https://docs.rowy.io
+- type: Plans
+  url: plans/rowy-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/rowy-rate-limits.yml
+- type: FinOps
+  url: finops/rowy-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

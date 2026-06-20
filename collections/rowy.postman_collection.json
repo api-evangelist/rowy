@@ -1,0 +1,51 @@
+{
+  "info": {
+    "name": "Rowy",
+    "description": "Rowy has no fixed public REST API. Its main inbound API surface is per-table webhooks running on Google Cloud Run (rowy-hooks) in the user's own GCP project. The webhook URL is generated per table; set the rowyWebhookUrl variable to your generated Rowy webhook endpoint.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "rowyWebhookUrl",
+      "value": "https://your-rowy-hooks-service-url.run.app/wh/your-table/your-webhook-id",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Webhooks",
+      "description": "Inbound webhook receivers for Rowy tables, running on Google Cloud Run.",
+      "item": [
+        {
+          "name": "Send data to a Rowy table webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{rowyWebhookUrl}}",
+              "host": [
+                "{{rowyWebhookUrl}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "POST a JSON payload to a Rowy table's generated webhook endpoint. A low-code parser function maps the request body into a new row. Built-in webhook types: Basic, Typeform, Sendgrid, Github. The endpoint URL is generated per table on Google Cloud Run inside your own GCP project."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

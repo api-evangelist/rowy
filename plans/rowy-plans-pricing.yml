@@ -1,0 +1,108 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Rowy
+providerId: rowy
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Low-Code
+- Backend
+- Firestore
+- Firebase
+- Webhooks
+- Cloud Functions
+- Plans
+description: >-
+  Rowy is open-source and free to self-host. The hosted Rowy app offers a free
+  Base plan (one workspace, one connected Firebase/GCP project, core CMS,
+  unlimited cloud functions, webhooks) and a paid Pro plan adding multiple
+  projects, advanced filtering, role-based access, code sandbox, embeddable
+  tables, and priority support. Rowy itself charges nothing for compute - the
+  app connects to the user's own Firebase/GCP project, so the real cost is the
+  user's underlying Google Cloud usage, not Rowy. Specific Pro pricing is not
+  reconciled in this artifact.
+notes: >-
+  A Pro price of roughly $15/month has been reported by third parties but is not
+  confirmed here; verify Base vs Pro tiers and current pricing on the Rowy
+  pricing page during reconciliation. The dominant cost driver is the user's own
+  GCP/Firebase consumption (Firestore storage/reads, Cloud Functions, Cloud
+  Run), not a Rowy fee.
+sources:
+- https://www.rowy.io/pricing
+- https://docs.rowy.io/faqs/cost
+- https://github.com/rowyio/rowy
+plans:
+- id: rowy-open-source
+  name: Open Source (Self-Hosted)
+  type: free
+  description: >-
+    Rowy is open source and can be self-hosted into the user's own
+    Firebase/GCP project at no license cost; the only cost is the user's GCP
+    usage.
+  entries:
+  - label: Self-Hosted License
+    name: open_source
+    type: free
+    metric: license
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free (open source; user pays own GCP costs)
+    userMultiplied: false
+  elements:
+  - name: Spreadsheet UI on Firestore
+  - name: Low-Code Cloud Functions
+  - name: Webhooks
+  - name: Automations
+- id: rowy-base
+  name: Base (Hosted Free)
+  type: free
+  description: >-
+    Free hosted Rowy plan: one workspace with one connected Firebase/GCP
+    project, core CMS, unlimited cloud functions, and webhooks. No charge from
+    Rowy; user pays their own GCP costs.
+  entries:
+  - label: Base Plan
+    name: base
+    type: free
+    metric: workspace
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  elements:
+  - name: One Workspace
+  - name: One Connected Project
+  - name: Unlimited Cloud Functions
+  - name: Webhooks
+- id: rowy-pro
+  name: Pro
+  type: paid
+  description: >-
+    Paid hosted plan adding multiple Firebase/GCP projects, advanced filtering,
+    role-based access controls, code sandbox, data migration tools, embeddable
+    tables, and priority support. Exact price not reconciled.
+  entries:
+  - label: Pro Plan
+    name: pro
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: see Rowy pricing page (reported ~$15/month, unconfirmed)
+    userMultiplied: false
+  elements:
+  - name: Multiple Projects
+  - name: Role-Based Access Control
+  - name: Advanced Filtering
+  - name: Priority Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

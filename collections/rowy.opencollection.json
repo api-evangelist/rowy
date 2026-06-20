@@ -1,0 +1,34 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rowy",
+    "version": "1.0",
+    "description": "Rowy has no fixed public REST API. Its main inbound API surface is per-table webhooks running on Google Cloud Run (rowy-hooks) in the user's own GCP project. The webhook URL is generated per table and is not a fixed host; replace the example URL with your generated Rowy webhook endpoint."
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send data to a Rowy table webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{rowyWebhookUrl}}",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "POST a JSON payload to a Rowy table's generated webhook endpoint. A low-code parser function maps the request body into a new row. Built-in webhook types: Basic, Typeform, Sendgrid, Github. The endpoint URL ({{rowyWebhookUrl}}) is generated per table on Google Cloud Run inside your own GCP project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

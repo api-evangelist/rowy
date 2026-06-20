@@ -1,0 +1,102 @@
+aid: rowy
+name: Rowy
+review:
+  question: Does Rowy expose a documented public REST API or streaming/WebSocket API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Rowy does not document any streaming,
+    Server-Sent Events, or WebSocket surface. Its inbound webhooks are
+    plain HTTP POST receivers (request/response), and its realtime data
+    updates are a property of the underlying Google Cloud Firestore SDK,
+    not a Rowy-published streaming API. There is therefore no event-driven
+    Rowy interface to model in AsyncAPI.
+findings:
+  summary: |
+    Rowy is an open-source low-code backend platform: an Airtable-like
+    spreadsheet UI on top of Google Cloud Firestore, with low-code
+    JavaScript/TypeScript Cloud Functions, column automations, and webhooks.
+    It is primarily a UI plus a Firebase/GCP framework deployed into the
+    user's own Google Cloud project, not a hosted API product.
+
+    Rowy does NOT publish a fixed public REST API with documented endpoints.
+    Its developer-facing interface surface is:
+
+    1. Webhooks (inbound) - Each table can generate an HTTPS webhook endpoint
+       running on Google Cloud Run (the rowy-hooks service) that accepts POST
+       requests from external systems. Built-in types: Basic, Typeform,
+       Sendgrid, Github. A low-code parser maps the request into a new row,
+       with optional condition and verification functions. The endpoint URL is
+       generated per table and lives in the user's own GCP project, so there is
+       no fixed documented host or path.
+
+    2. Rowy Run / Cloud Functions - A group of Cloud Run services
+       (rowy-backend, rowy-hooks) deployed into the user's GCP project for
+       derivatives, action scripts, webhooks, user management, and one-click
+       Cloud Function deployment. Service URLs are generated at deploy time and
+       stored in Firestore (_rowy_/settings); no public endpoint catalog is
+       documented.
+
+    3. Firestore Data - Tables map onto Firestore collections, accessed via the
+       Firebase/Google Cloud SDKs and the Firestore REST/RPC API - not a
+       Rowy-specific REST API.
+
+    No fabricated REST endpoints are documented. The OpenAPI artifact uses an
+    empty paths object with an accurate description.
+  transports:
+    - protocol: HTTP Webhook (inbound)
+      scheme: https
+      documented: true
+      note: >-
+        Per-table webhook receiver endpoints generated on Google Cloud Run
+        (rowy-hooks). Accept POST. URL is generated per deployment inside the
+        user's own GCP project; no fixed public host.
+    - protocol: REST
+      scheme: https
+      documented: false
+      note: >-
+        Rowy publishes no fixed public REST API with a stable base URL and
+        documented endpoint catalog. Rowy Run service URLs are deploy-time
+        generated and stored in Firestore.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events surface is documented for Rowy.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: >-
+        No Rowy WebSocket endpoint is documented. Realtime data sync is a
+        property of the underlying Firestore SDK, not a Rowy-published API.
+  interfaceType:
+    primary: Inbound HTTP webhooks (request/response)
+    secondary: Self-hosted Cloud Run services (Rowy Run) + Firestore SDK data access
+    fixedPublicRestApi: false
+  endpointsConfirmedRest: []
+sources:
+  - url: https://docs.rowy.io/
+    type: Documentation
+    note: Overview - Rowy is a spreadsheet UI on Firestore with low-code Cloud Functions and webhooks.
+  - url: https://docs.rowy.io/webhooks
+    type: Documentation
+    note: Webhooks run on Google Cloud Run; types Basic, Typeform, Sendgrid, Github; parser/condition/verification functions; POST receivers.
+  - url: https://docs.rowy.io/rowy-run
+    type: Documentation
+    note: Rowy Run is a group of Cloud Run services (rowy-backend, rowy-hooks); URLs generated at deploy and stored in Firestore _rowy_/settings.
+  - url: https://github.com/rowyio/rowy
+    type: GitHub
+    note: Source for the open-source Rowy app (React/TypeScript, Firebase, Cloud Functions, Cloud Run). No published REST API reference.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No streaming or WebSocket surface exists, so no AsyncAPI document was
+    created. The OpenAPI artifact intentionally contains empty paths because
+    Rowy publishes no fixed public REST endpoints; its real interface is
+    inbound webhooks plus self-hosted Rowy Run / Cloud Run services and the
+    underlying Firestore data store accessed via the Firebase SDK.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
