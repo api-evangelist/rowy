@@ -84,6 +84,8 @@ apis:
     Firestore REST/RPC API. Rowy provides the spreadsheet UI and low-code layer on
     top of this data.
 common:
+- type: DomainSecurity
+  url: security/rowy-domain-security.yml
 - type: GitHubOrganization
   url: https://github.com/rowyio
 - type: LinkedIn
