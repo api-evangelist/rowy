@@ -1,0 +1,14 @@
+{
+  "provider": "rowy",
+  "sources": [
+    "rowy-openapi.yml"
+  ],
+  "outputs": [],
+  "archived": [
+    "archived rowy-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

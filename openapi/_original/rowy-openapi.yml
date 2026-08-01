@@ -1,0 +1,54 @@
+openapi: 3.0.1
+info:
+  title: Rowy API
+  description: >-
+    Rowy is an open-source low-code backend platform: an Airtable-like
+    spreadsheet UI on top of Google Cloud Firestore, with JavaScript/TypeScript
+    Cloud Functions, column automations, and webhooks. Rowy does NOT publish a
+    fixed public REST API with documented endpoints, so this OpenAPI document
+    intentionally contains no paths.
+
+
+    Rowy's interface surface is:
+
+
+    1. Webhooks (inbound) - Each table can generate an HTTPS webhook endpoint
+       running on Google Cloud Run (the rowy-hooks service) that accepts POST
+       requests from external systems (Basic, Typeform, Sendgrid, Github types).
+       A low-code parser function maps the request into a new row. The endpoint
+       URL is generated per table and deployed into the user's own GCP project;
+       there is no fixed host, so it cannot be modeled as a static path here.
+
+
+    2. Rowy Run / Cloud Functions - A group of Cloud Run services (rowy-backend,
+       rowy-hooks) deployed into the user's own GCP project. Service URLs are
+       generated at deploy time and stored in Firestore (_rowy_/settings); there
+       is no documented public endpoint catalog.
+
+
+    3. Firestore Data - Tables map onto Firestore collections, accessed via the
+       Firebase/Google Cloud SDKs and the Firestore REST/RPC API, not a
+       Rowy-specific REST API.
+
+
+    No REST endpoints are fabricated. See the Rowy documentation for webhook,
+    Rowy Run, and Cloud Function setup.
+  termsOfService: https://www.rowy.io/terms
+  contact:
+    name: Rowy
+    url: https://www.rowy.io
+  license:
+    name: See repository LICENSE
+    url: https://github.com/rowyio/rowy/blob/main/LICENSE
+  version: '1.0'
+externalDocs:
+  description: Rowy Documentation
+  url: https://docs.rowy.io
+servers:
+  - url: https://docs.rowy.io
+    description: >-
+      Documentation only. Rowy has no fixed public REST API host; webhook and
+      Rowy Run service URLs are generated per deployment inside the user's own
+      Google Cloud project.
+paths: {}
+components: {}
