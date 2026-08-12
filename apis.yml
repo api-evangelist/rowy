@@ -45,7 +45,7 @@ apis:
     type: Documentation
   - url: https://docs.rowy.io/webhooks/basic
     type: APIReference
-  - url: openapi/rowy-openapi.yml
+  - url: openapi/_original/rowy-openapi.yml
     type: OpenAPI
   - url: https://github.com/rowyio/rowy
     type: GitHub
@@ -65,7 +65,7 @@ apis:
   properties:
   - url: https://docs.rowy.io/rowy-run
     type: Documentation
-  - url: openapi/rowy-openapi.yml
+  - url: openapi/_original/rowy-openapi.yml
     type: OpenAPI
   - url: https://github.com/rowyio/rowy
     type: GitHub
@@ -86,7 +86,7 @@ apis:
   properties:
   - url: https://docs.rowy.io/
     type: Documentation
-  - url: openapi/rowy-openapi.yml
+  - url: openapi/_original/rowy-openapi.yml
     type: OpenAPI
   - url: https://github.com/rowyio/rowy
     type: GitHub
