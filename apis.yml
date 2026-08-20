@@ -26,6 +26,13 @@ tags:
 - Backend
 - Firestore
 - Firebase
+- Webhook
+- Cloud Functions
+tags_raw:
+- Low-Code
+- Backend
+- Firestore
+- Firebase
 - Webhooks
 - Cloud Functions
 created: '2026-06-20'
@@ -35,6 +42,10 @@ apis:
 - aid: rowy:rowy-webhooks
   name: Rowy Webhooks
   tags:
+  - Webhook
+  - Inbound
+  - HTTP
+  tags_raw:
   - Webhooks
   - Inbound
   - HTTP
