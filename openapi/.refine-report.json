@@ -1,14 +1,17 @@
 {
   "provider": "rowy",
   "sources": [
-    "rowy-openapi.yml"
+    "_original/rowy-openapi.yml"
   ],
   "outputs": [],
-  "archived": [
-    "archived rowy-openapi.yml"
-  ],
+  "archived": [],
   "errors": [],
-  "warnings": [],
-  "notes": [],
+  "warnings": [
+    "produced no outputs (1 source(s) have no operations) \u2014 sources left in place rather than archived"
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "rowy-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0"
+  ],
   "skipped": []
 }
