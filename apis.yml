@@ -9,15 +9,20 @@ description: Rowy is an open-source low-code backend platform that puts an Airta
   surface is per-table webhooks running on Cloud Run, alongside Rowy Run backend
   services and the underlying Firestore data store accessed via the Firebase SDK.
 deliveryModel:
-  model: saas
-  open_source: false
+  model: unknown
+  license_evidence:
+    repo: rowyio/rowy
+    spdx: NOASSERTION
+    stars: 6844
+  open_source: unknown
   commercial: true
   callable_host: false
-  label: Hosted service · you call their endpoint
-  confidence: medium
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
   source:
   - pricing
-  generated: '2026-08-28'
+  - repository-unlicensed
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
