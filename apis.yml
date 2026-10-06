@@ -52,7 +52,7 @@ tags_raw:
 - Webhooks
 - Cloud Functions
 created: '2026-06-20'
-modified: '2026-06-20'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: rowy:rowy-webhooks
@@ -123,6 +123,8 @@ apis:
     Firestore REST/RPC API. Rowy provides the spreadsheet UI and low-code layer on
     top of this data.
 common:
+- url: https://www.rowy.io/blog
+  type: Blog
 - type: DomainSecurity
   url: security/rowy-domain-security.yml
 - type: GitHubOrganization
